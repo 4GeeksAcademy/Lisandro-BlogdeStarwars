@@ -1,3 +1,4 @@
+import { element } from "prop-types";
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
@@ -15,7 +16,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             ],
             personajes: [],
             planetas: [],
-            vehiculos: []
+            vehiculos: [],
+            favoritos: []
         },
         actions: {
             // Use getActions to call a function within a fuction
@@ -40,26 +42,36 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ demo: demo });
             },
             getPersonajes: () => {
-                    fetch("https://www.swapi.tech/api/people/")
-                        .then(res => res.json())
-                        .then(data => setStore({personajes: data.results}))
-                        .catch(error => console.error(error))
+                fetch("https://www.swapi.tech/api/people/")
+                    .then(res => res.json())
+                    .then(data => setStore({ personajes: data.results }))
+                    .catch(error => console.error(error))
             },
             getPlanetas: () => {
                 fetch("https://www.swapi.tech/api/planets/")
                     .then(res => res.json())
-                    .then(data => setStore({planetas: data.results}))
-                    // .then(data => console.log(data))
+                    .then(data => setStore({ planetas: data.results }))
                     .catch(error => console.error(error))
-        },
-		getVehiculos: () => {
-			fetch("https://www.swapi.tech/api/vehicles/")
-				.then(res => res.json())
-				.then(data => setStore({vehiculos: data.results}))
-				// .then(data => console.log(data))
-				.catch(error => console.error(error))
-	},
-        },
+            },
+            getVehiculos: () => {
+                fetch("https://www.swapi.tech/api/vehicles/")
+                    .then(res => res.json())
+                    .then(data => setStore({ vehiculos: data.results }))
+                    .catch(error => console.error(error))
+            },
+            removeFavorites:(item)=> {
+                const store = getStore()
+                let newFavorite = store.favoritos.filter((element) => element !== item)
+                setStore({favoritos: newFavorite})
+            },
+            setFavorites: (item) => {
+                const store = getStore()
+                let setFavorites = store.favoritos.includes(item)
+                if (!setFavorites) {
+                    setStore({favoritos: [...store.favoritos, item]})
+                }
+            }
+        }
     };
 };
 export default getState;
