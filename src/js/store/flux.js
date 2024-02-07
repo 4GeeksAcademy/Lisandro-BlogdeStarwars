@@ -17,7 +17,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             personajes: [],
             planetas: [],
             vehiculos: [],
-            favoritos: []
+            favoritos: [],
+            detallespersonaje: {},
+            planeta: {},
+            vehicle:{}
         },
         actions: {
             // Use getActions to call a function within a fuction
@@ -47,10 +50,22 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => setStore({ personajes: data.results }))
                     .catch(error => console.error(error))
             },
+            getDetalles: (url) => {
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => setStore({ detallespersonaje: data.result }))
+                    .catch(error => console.error(error))
+            },
             getPlanetas: () => {
                 fetch("https://www.swapi.tech/api/planets/")
                     .then(res => res.json())
                     .then(data => setStore({ planetas: data.results }))
+                    .catch(error => console.error(error))
+            },
+            getPlaneta: (url) => {
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => setStore({ planeta: data.result }))
                     .catch(error => console.error(error))
             },
             getVehiculos: () => {
@@ -59,20 +74,25 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => setStore({ vehiculos: data.results }))
                     .catch(error => console.error(error))
             },
-            removeFavorites:(item)=> {
+            getVehicle: (url) => {
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => setStore({ vehicle: data.result }))
+                    .catch(error => console.error(error))
+            },
+            removeFavorites: (item) => {
                 const store = getStore()
                 let newFavorite = store.favoritos.filter((element) => element !== item)
-                setStore({favoritos: newFavorite})
+                setStore({ favoritos: newFavorite })
             },
             setFavorites: (item) => {
                 const store = getStore()
                 let setFavorites = store.favoritos.includes(item)
                 if (!setFavorites) {
-                    setStore({favoritos: [...store.favoritos, item]})
+                    setStore({ favoritos: [...store.favoritos, item] })
                 }
             }
         }
     };
 };
-
 export default getState;

@@ -13,59 +13,68 @@ export const Home = () => {
         actions.setFavorites()
     }, [])
     return (
-        <div className="">
-            <div className="d-flex overflow-auto">
+        <div className=''>
+            <h1>characters</h1>
+            <div className="d-flex gap-0 column-gap-3 overflow-auto">
                 {store.personajes.map((item) => (
-                    <div className="col p-3" key={item.uid}>
-                        <div className="card cardTamaño m-2 p-2">
+                    <div className="col p-5" key={item.uid}>
+                        <div className="p-2 g-col-6" style={{ width: "250px" }}>
                             <img src={`https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`} className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">{item.name}</h5>
-                                <Link to={"/detailview"}><button>Learn more!</button></Link>
-                                <button
-                                onClick={()=>{
-                                    let name = item.name
-                                    actions.setFavorites(name)
-                                }}
-                                ><i class="fa fa-heart"></i></button>
+                            <div className="card-body p-7">
+                                <h5 className="card-title text-center">{item.name}</h5>
+                                <p>{store.detallespersonaje.gender}</p>
+                                <Link className='btn btn-primary mx-3' to={`/detailview/personaje/${item.uid}`}>Learn more!</Link>
+                                <button className='btn btn-warning'
+                                    onClick={() => {
+                                        let name = item.name
+                                        actions.setFavorites(name)
+                                    }}
+                                ><i className="fa fa-heart text-light"></i></button>
                             </div>
                         </div>
                     </div>
                 ))} </div>
-            <div className="d-flex overflow-auto">
+            <h1>Planets</h1>
+            <div className="d-flex gap-0 column-gap-3 overflow-auto">
                 {store.planetas.map((item) => (
-                    <div className="col" key={item.uid}>
-                        <div className="card card cardTamaño m-2 p-2">
-                            <img src={`https://starwars-visualguide.com/assets/img/planets/${item.uid}.jpg`} className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">{item.name}</h5>
-                                <Link to={"/detailview"}><button>Learn more!</button></Link>
-                                <button
-                                onClick={()=>{
-                                    let name = item.name
-                                    actions.setFavorites(name)
-                                }}
-                              
-                            ><i class="fa fa-heart"></i></button>
+                    <div className="col p-5" key={item.uid}>
+                        <div className="p-2 g-col-6" style={{ width: "250px" }}>
+                            <img src={
+                                item.uid == 1 ?
+                                    `https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Tatooine_%28fictional_desert_planet%29.jpg/220px-Tatooine_%28fictional_desert_planet%29.jpg`
+                                    :
+                                    `https://starwars-visualguide.com/assets/img/planets/${item.uid}.jpg`
+                            } className="card-img-top" alt="..." />
+                            {/* <img src={`https://starwars-visualguide.com/assets/img/planets/${item.uid}.jpg`} className="card-img-top" alt="..." /> */}
+                            <div className="card-body p-7">
+                                <h5 className="card-title text-center">{item.name}</h5>
+                                <Link className='btn btn-primary mx-3' to={`/planetas/${item.uid}`}>Learn more!</Link>
+                                <button className='btn btn-warning'
+                                    onClick={() => {
+                                        let name = item.name
+                                        actions.setFavorites(name)
+                                    }}
+                                ><i className="fa fa-heart text-light"></i></button>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-            <div className="d-flex overflow-auto">
+            <h1>Vehicles</h1>
+            <div className="d-flex gap-0 column-gap-3 overflow-auto">
                 {store.vehiculos.map((item) => (
-                    <div className="col" key={item.uid}>
-                        <div className="card card cardTamaño m-2 p-2">
+                    <div className="col p-5" key={item.uid}>
+                        <div className="card p-2 g-col-6" style={{ width: "250px" }}>
                             <img src={`https://starwars-visualguide.com/assets/img/vehicles/${item.uid}.jpg`} className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">{item.name}</h5>
-                                <Link to={"/detailview"}><button>Learn more!</button></Link>
-                                <button
-                                onClick={()=>{
-                                    let name = item.name
-                                    actions.setFavorites(name)
-                                }}
-                                ><i class="fa fa-heart"></i></button>
+                            <div className="card-body p-7">
+                                <h5 className="card-title text-center">{item.name}</h5>
+                                <Link className='btn btn-primary mx-3' to={`/vehicles/${item.uid}`}>Learn more!</Link>
+                                <button className='btn btn-warning'
+                                    onClick={() => {
+                                        let name = item.name
+                                        actions.setFavorites(name)
+                                    }}
+                                ><i className="fa fa-heart text-light"></i></button>
                             </div>
                         </div>
                     </div>

@@ -10,18 +10,18 @@ export const Navbar = () => {
                     <a className="navbar-brand"></a>
                     <img className="width-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1200px-Star_Wars_Logo.svg.png"></img>
                 </Link>
-               {/*  <Link to="/planetas">
+                <Link to="/planetas">
                     <a className="navbar-brand"></a>
-                </Link> */}
+                </Link>
                 <div className="ml-auto">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div className="dropdown">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             favoritos {store.favoritos.length}
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul className="dropdown-menu">
                             {store.favoritos.map((element)=>{
                                 return(
-                                    <li><a class="dropdown-item" href="#">{element}</a>
+                                    <li><a className="dropdown-item" href="#">{element}</a>
                                     <button onClick={()=> actions.removeFavorites(element)}>x</button>
                                     </li>
                                 )
