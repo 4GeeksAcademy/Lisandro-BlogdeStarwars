@@ -2,10 +2,7 @@
     General Styles
 */
 
-.cardTamaño{
-    width: 18rem;
-}
-
-.width-img{
-    width: 100px;
+.btn:active {
+    background-color: red; 
+    
 }

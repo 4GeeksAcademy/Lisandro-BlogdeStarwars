@@ -1,98 +1,57 @@
-import { element } from "prop-types";
 const getState = ({ getStore, getActions, setStore }) => {
-    return {
-        store: {
-            demo: [
-                {
-                    title: "FIRST",
-                    background: "white",
-                    initial: "white"
-                },
-                {
-                    title: "SECOND",
-                    background: "white",
-                    initial: "white"
-                }
-            ],
-            personajes: [],
-            planetas: [],
-            vehiculos: [],
-            favoritos: [],
-            detallespersonaje: {},
-            planeta: {},
-            vehicle:{}
-        },
-        actions: {
-            // Use getActions to call a function within a fuction
-            exampleFunction: () => {
-                getActions().changeColor(0, "green");
-            },
-            loadSomeData: () => {
-                /**
-                    fetch().then().then(data => setStore({ "foo": data.bar }))
-                */
-            },
-            changeColor: (index, color) => {
-                //get the store
-                const store = getStore();
-                //we have to loop the entire demo array to look for the respective index
-                //and change its color
-                const demo = store.demo.map((elm, i) => {
-                    if (i === index) elm.background = color;
-                    return elm;
-                });
-                //reset the global store
-                setStore({ demo: demo });
-            },
-            getPersonajes: () => {
-                fetch("https://www.swapi.tech/api/people/")
-                    .then(res => res.json())
-                    .then(data => setStore({ personajes: data.results }))
-                    .catch(error => console.error(error))
-            },
-            getDetalles: (url) => {
-                fetch(url)
-                    .then(res => res.json())
-                    .then(data => setStore({ detallespersonaje: data.result }))
-                    .catch(error => console.error(error))
-            },
-            getPlanetas: () => {
-                fetch("https://www.swapi.tech/api/planets/")
-                    .then(res => res.json())
-                    .then(data => setStore({ planetas: data.results }))
-                    .catch(error => console.error(error))
-            },
-            getPlaneta: (url) => {
-                fetch(url)
-                    .then(res => res.json())
-                    .then(data => setStore({ planeta: data.result }))
-                    .catch(error => console.error(error))
-            },
-            getVehiculos: () => {
-                fetch("https://www.swapi.tech/api/vehicles/")
-                    .then(res => res.json())
-                    .then(data => setStore({ vehiculos: data.results }))
-                    .catch(error => console.error(error))
-            },
-            getVehicle: (url) => {
-                fetch(url)
-                    .then(res => res.json())
-                    .then(data => setStore({ vehicle: data.result }))
-                    .catch(error => console.error(error))
-            },
-            removeFavorites: (item) => {
-                const store = getStore()
-                let newFavorite = store.favoritos.filter((element) => element !== item)
-                setStore({ favoritos: newFavorite })
-            },
-            setFavorites: (item) => {
-                const store = getStore()
-                let setFavorites = store.favoritos.includes(item)
-                if (!setFavorites) {
-                    setStore({ favoritos: [...store.favoritos, item] })
-                }
-            }
-        }
-    };
-};
+	return {
+		store: {
+			listCharacters: [],
+			listPlanets: [],
+			listVehicles: [],
+			listFavorites: [],
+			infoCharacter: {}
+		},
+		actions: {
+
+			getCharacters: () => {
+				fetch("https://www.swapi.tech/api/people/")
+					.then((response) => response.json())
+					.then((data) => setStore({listCharacters:data.results}));
+					// .then((data) => console.log(data));	
+
+			},
+			getVehicles: () => {
+				fetch("https://www.swapi.tech/api/vehicles/")
+					.then((response) => response.json())
+					.then((data) => setStore({listVehicles:data.results}));
+					// .then((data) => console.log(data));
+			},
+			getPlanets: () => {
+				fetch("https://www.swapi.tech/api/planets/")
+					.then((response) => response.json())
+					.then((data) => setStore({listPlanets:data.results}));
+					// .then((data) => console.log(data));
+			},
+
+			getInformation: (type , id) => {
+				fetch(`https://www.swapi.tech/api/${type}/${id}`)
+					.then((response) => response.json())
+					.then((data) => setStore({infoCharacter:data.result}));
+					// .then((data) => console.log(data));
+			},
+
+			addFavorites: (name) => {
+				setStore({listFavorites:getStore().listFavorites.concat(name)});
+
+				
+			},
+
+			deleteFavoritos: (elemento) => {
+				const store = getStore();
+				const updatedFavoritos = store.listFavorites.filter((fav) => fav !== elemento);
+				setStore({ listFavorites: updatedFavoritos });
+			},
+
+		}
+	}
+}
+
+
+
 export default getState;
